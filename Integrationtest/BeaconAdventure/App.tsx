@@ -54,7 +54,7 @@ const AppNavigator = createSharedElementStackNavigator(
     }
   },
   {
-    initialRouteName: ScreenKeys.Onboarding,
+    initialRouteName: ScreenKeys.QuestPreview,
     defaultNavigationOptions: {
       headerStyle: {
         elevation: 0,

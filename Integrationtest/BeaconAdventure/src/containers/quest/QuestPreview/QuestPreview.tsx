@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Animated, Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import NearbyBeacons from 'react-native-beacon-suedtirol-mobile-sdk';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-import { Button } from 'react-native-paper';
+import { Button, ActivityIndicator } from 'react-native-paper';
 import { Transition, Transitioning, TransitioningView } from 'react-native-reanimated';
 import { material } from 'react-native-typography';
 import { NavigationScreenComponent, NavigationScreenProps } from 'react-navigation';
@@ -15,6 +15,12 @@ import { translate } from '../../../localization/locale';
 import { Quest } from '../../../models/quest';
 import { ScreenKeys } from '../../../screens';
 import { Colors } from '../../../styles/colors';
+import to from 'await-to-js';
+import { getAuthToken, getUserDetail } from '../../../api/auth';
+import { hashCode } from '../../../utils/stringUtils';
+import { getQuests } from '../../../api/quests';
+import { UserDetail } from '../../../models/user';
+import find from 'lodash.find';
 
 interface Props extends NavigationScreenProps {
   // ... other props
@@ -30,13 +36,37 @@ const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = () => {
   const navigation = useNavigation();
-  const quest: Quest = useNavigationParam('quest');
-  const userId: number = useNavigationParam('userId');
-  const token = useNavigationParam('token');
+  // const quest: Quest = useNavigationParam('quest');
+  const [quest, setQuest] = useState();
+  // const userId: number = useNavigationParam('userId');
+  // const token = useNavigationParam('token');
+  const [token, setToken] = useState('');
+  const username = 'ciaototto@gmail.com';
+  const [user, setUser] = useState<UserDetail>({ username });
   const [isTransitionCompleted, setCompleted] = useState(false);
   const scrollY = new Animated.Value(0);
 
   const ref = useRef<TransitioningView>();
+
+  useEffect(() => {
+    const fetchQuest = async () => {
+      const [e, tokenResponse] = await to(getAuthToken(username, hashCode(username)));
+
+      if (tokenResponse) {
+        const { token, id } = tokenResponse;
+
+        setToken(token);
+
+        const user = await getUserDetail(token, id);
+        const [e, quests] = await to<Quest>(getQuests(token));
+
+        setUser({ ...user, id });
+        setQuest(find(quests, q => q.name === 'Merano - Christmas Crime'));
+      }
+    };
+
+    fetchQuest();
+  }, []);
 
   const headerHeight = scrollY.interpolate({
     inputRange: [0, HEADER_SCROLL_DISTANCE],
@@ -89,7 +119,7 @@ const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = (
       quest,
       stepId: 1,
       token,
-      userId
+      userId: user.id
     });
   };
 
@@ -100,6 +130,10 @@ const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = (
       <Transition.Out type="slide-bottom" interpolation="easeInOut" durationMs={20} />
     </Transition.Together>
   );
+
+  if (!quest) {
+    return <View />;
+  }
 
   return (
     <>
