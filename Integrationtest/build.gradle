@@ -34,6 +34,7 @@ allprojects {
             url("$rootDir/../../BeaconAdventure/node_modules/jsc-android/dist")
         }
         maven { url "http://it.bz.opendatahub.s3-website-eu-west-1.amazonaws.com/snapshot" }
+        maven { url 'https://jitpack.io' }
         jcenter()
     }
 }

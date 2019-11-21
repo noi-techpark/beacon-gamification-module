@@ -94,19 +94,11 @@ android {
 
         }
     }
-    packagingOptions {
-        pickFirst '**/armeabi-v7a/libc++_shared.so'
-        pickFirst '**/x86/libc++_shared.so'
-        pickFirst '**/arm64-v8a/libc++_shared.so'
-        pickFirst '**/x86_64/libc++_shared.so'
-        pickFirst '**/x86/libjsc.so'
-        pickFirst '**/armeabi-v7a/libjsc.so'
-    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.facebook.react:react-native:0.60.5"
+    implementation "com.facebook.react:react-native:0.61.4"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
@@ -126,7 +118,7 @@ dependencies {
     implementation project(path: ':react-native-beacon-suedtirol-mobile-sdk')
 
     if (enableHermes) {
-        def hermesPath = "../BeaconAdventure/node_modules/hermesvm/android/";
+        def hermesPath = "../BeaconAdventure/node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
         releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {
