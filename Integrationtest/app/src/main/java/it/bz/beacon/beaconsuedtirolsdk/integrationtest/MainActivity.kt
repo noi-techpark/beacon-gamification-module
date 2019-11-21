@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(this)) {
                 val intent = Intent(
                     Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE)
             }
-        }
+        }*/
 
         val clickButton = findViewById<Button>(R.id.button)
         clickButton.setOnClickListener {

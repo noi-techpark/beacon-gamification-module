@@ -7,9 +7,11 @@
     "start": "react-native start",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
+    "bundle-android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output ../app/src/main/assets/index.android.bundle --assets-dest ../app/src/main/res/",
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/cli-platform-android": "3.0.0-alpha.2",
     "appcenter": "2.3.0",
     "appcenter-analytics": "2.3.0",
     "appcenter-crashes": "2.3.0",
@@ -32,8 +34,8 @@
     "lottie-react-native": "^3.2.1",
     "patch-package": "^6.2.0",
     "postinstall-postinstall": "^2.0.0",
-    "react": "16.8.6",
-    "react-native": "0.60.5",
+    "react": "16.9.0",
+    "react-native": "0.61.4",
     "react-native-beacon-suedtirol-mobile-sdk": "git://github.com/BelkaLab/react-native-beacon-suedtirol-mobile-sdk",
     "react-native-draggable-flatlist": "^2.0.1",
     "react-native-fast-image": "^7.0.2",
@@ -57,8 +59,8 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
-    "@babel/runtime": "^7.5.0",
+    "@babel/core": "^7.6.2",
+    "@babel/runtime": "^7.6.2",
     "@react-native-community/eslint-config": "^0.0.3",
     "@types/i18n-js": "^3.0.1",
     "@types/jest": "^24.0.15",
@@ -78,10 +80,10 @@
     "@types/react-native": "^0.60.1",
     "@types/react-test-renderer": "^16.8.2",
     "@types/yup": "^0.26.24",
-    "babel-jest": "^24.1.0",
-    "jest": "^24.1.0",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.54.1",
-    "react-test-renderer": "16.8.6",
+    "react-test-renderer": "16.9.0",
     "typescript": "^3.5.3"
   },
   "jest": {

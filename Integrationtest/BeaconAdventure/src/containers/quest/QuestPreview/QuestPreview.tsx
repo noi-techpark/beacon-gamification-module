@@ -61,7 +61,7 @@ const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = (
         const [e, quests] = await to<Quest>(getQuests(token));
 
         setUser({ ...user, id });
-        setQuest(find(quests, q => q.name === 'Merano - Christmas Crime'));
+        setQuest(find(quests, q => q.name.toLowerCase() === 'Merano - Christmas Crime'.toLowerCase()));
       }
     };
 
@@ -90,6 +90,7 @@ const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = (
     if (evt.type === 'willFocus') {
       StatusBar.setBarStyle('light-content', true);
       StatusBar.setBackgroundColor('transparent', false);
+      setCompleted(true);
     }
 
     if (evt.type === 'didFocus' && evt.action.type === 'Navigation/COMPLETE_TRANSITION') {

@@ -32,7 +32,7 @@ public class MyReactActivity extends ReactActivity implements DefaultHardwareBac
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
                 .setCurrentActivity(this)
-                //.setBundleAssetName("index.android.bundle")
+                .setBundleAssetName("index.android.bundle")
                 .setJSMainModulePath("index")
                 .addPackage(new MainReactPackage())
                 .addPackage(new RNGestureHandlerPackage())
