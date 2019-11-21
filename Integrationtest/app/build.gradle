@@ -8,11 +8,11 @@ import com.android.build.OutputFile
 
 project.ext.react = [
         entryFile: "index.js",
-        root: "../../BeaconAdventure",
+        root: "../BeaconAdventure",
         enableHermes: false,  // clean and rebuild if changing
 ]
 
-apply from: "../../BeaconAdventure/node_modules/react-native/react.gradle"
+apply from: "../BeaconAdventure/node_modules/react-native/react.gradle"
 
 
 /**
@@ -122,11 +122,11 @@ dependencies {
     implementation project(path: ':lottie-react-native')
     implementation project(path: ':react-native-reanimated')
     implementation project(path: ':react-native-linear-gradient')
-    compile project(path: ':react-native-shared-element')
-    compile project(path: ':react-native-beacon-suedtirol-mobile-sdk')
+    implementation project(path: ':react-native-shared-element')
+    implementation project(path: ':react-native-beacon-suedtirol-mobile-sdk')
 
     if (enableHermes) {
-        def hermesPath = "../../BeaconAdventure/node_modules/hermesvm/android/";
+        def hermesPath = "../BeaconAdventure/node_modules/hermesvm/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
         releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {
@@ -134,5 +134,5 @@ dependencies {
     }
 }
 
-apply from: file("../../BeaconAdventure/node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
-applyNativeModulesAppBuildGradle(project, "../../BeaconAdventure")
+apply from: file("../BeaconAdventure/node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
+applyNativeModulesAppBuildGradle(project, "../BeaconAdventure")
