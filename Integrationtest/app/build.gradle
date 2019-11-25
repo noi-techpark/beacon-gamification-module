@@ -66,10 +66,6 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('key-release.keystore')
-            storePassword 'ARZU9BKkvhNLAgnZYcMzKd2sQvDPp8'
-            keyAlias 'key-alias'
-            keyPassword 'NmNJCbx2DEPTB89XsJBNvnX2fWPbdX'
         }
     }
     buildTypes {
