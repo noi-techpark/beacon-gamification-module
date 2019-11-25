@@ -18,7 +18,8 @@ default_platform(:android)
 platform :android do
   desc "Runs all the tests"
   lane :test do
-    gradle(task: "test")
+    sh("cd ../..; npx jetify")
+    gradle(task: "clean assembleRelease")
   end
 
   desc "Submit a new Beta Build to Appcenter Beta"
