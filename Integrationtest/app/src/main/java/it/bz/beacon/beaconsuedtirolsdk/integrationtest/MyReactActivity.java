@@ -21,12 +21,18 @@ import com.swmansion.reanimated.ReanimatedPackage;
 // import com.facebook.react.LifecycleState;
 
 public class MyReactActivity extends ReactActivity implements DefaultHardwareBackBtnHandler {
+    public static final String QUEST_LOCALE = "beacon_adventure_quest_locale";
+    public static final String USER_EMAIL = "beacon_adventure_user_email";
+
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String questLocale = getIntent().hasExtra(QUEST_LOCALE) ? getIntent().getStringExtra(QUEST_LOCALE) : "de";
+        String userEmail = getIntent().hasExtra(USER_EMAIL) ? getIntent().getStringExtra(USER_EMAIL) : "";
 
         mReactRootView = new ReactRootView(this);
         mReactInstanceManager = ReactInstanceManager.builder()
@@ -47,7 +53,10 @@ public class MyReactActivity extends ReactActivity implements DefaultHardwareBac
                 .build();
         // The string here (e.g. "MyReactNativeApp") has to match
         // the string in AppRegistry.registerComponent() in index.js
-        mReactRootView.startReactApplication(mReactInstanceManager, "BeaconAdventure", null);
+        Bundle options = new Bundle();
+        options.putString(QUEST_LOCALE, questLocale);
+        options.putString(USER_EMAIL, userEmail);
+        mReactRootView.startReactApplication(mReactInstanceManager, "BeaconAdventure", options);
 
         setContentView(mReactRootView);
     }

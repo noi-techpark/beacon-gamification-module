@@ -21,6 +21,7 @@ import { hashCode } from '../../../utils/stringUtils';
 import { getQuests } from '../../../api/quests';
 import { UserDetail } from '../../../models/user';
 import find from 'lodash.find';
+import SuedtirolGuideStore from '../../../utils/guideSingleton';
 
 interface Props extends NavigationScreenProps {
   // ... other props
@@ -34,14 +35,11 @@ const HEADER_MAX_HEIGHT = DESIRED_DISTANCE + 56 + PADDING_BOTTOM_FIX + StatusBar
 const HEADER_MIN_HEIGHT = 56 + StatusBar.currentHeight;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
-const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = () => {
+const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = props => {
   const navigation = useNavigation();
-  // const quest: Quest = useNavigationParam('quest');
   const [quest, setQuest] = useState();
-  // const userId: number = useNavigationParam('userId');
-  // const token = useNavigationParam('token');
   const [token, setToken] = useState('');
-  const username = 'ciaototto@gmail.com';
+  const username = SuedtirolGuideStore.getInstance().getUserEmail() || 'ciaototto@gmail.com';
   const [user, setUser] = useState<UserDetail>({ username });
   const [isTransitionCompleted, setCompleted] = useState(false);
   const scrollY = new Animated.Value(0);
@@ -61,7 +59,7 @@ const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = (
         const [e, quests] = await to<Quest>(getQuests(token));
 
         setUser({ ...user, id });
-        setQuest(find(quests, q => q.name.toLowerCase() === 'Merano - Christmas Crime'.toLowerCase()));
+        setQuest(find(quests, q => q.name.toLowerCase() === SuedtirolGuideStore.getInstance().getQuestNameByLocale()));
       }
     };
 

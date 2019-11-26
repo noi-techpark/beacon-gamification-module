@@ -8,6 +8,8 @@ import android.provider.Settings
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import it.bz.beacon.beaconsuedtirolsdk.integrationtest.MyReactActivity.QUEST_LOCALE
+import it.bz.beacon.beaconsuedtirolsdk.integrationtest.MyReactActivity.USER_EMAIL
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         val clickButton = findViewById<Button>(R.id.button)
         clickButton.setOnClickListener {
             val intent = Intent(this@MainActivity, MyReactActivity::class.java)
+            intent.putExtra(QUEST_LOCALE, "it")
+            // intent.putExtra(USER_EMAIL, "mele@mele.it")
             startActivity(intent)
         }
     }
