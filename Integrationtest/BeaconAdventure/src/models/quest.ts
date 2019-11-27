@@ -41,4 +41,5 @@ export type QuestionMetadata = {
     wrongAnswerMessage: string;
     options: string[];
     help: string;
+    finder?: string;
 }

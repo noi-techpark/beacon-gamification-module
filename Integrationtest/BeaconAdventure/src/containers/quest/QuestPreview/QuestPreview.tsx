@@ -16,12 +16,13 @@ import { Quest } from '../../../models/quest';
 import { ScreenKeys } from '../../../screens';
 import { Colors } from '../../../styles/colors';
 import to from 'await-to-js';
-import { getAuthToken, getUserDetail } from '../../../api/auth';
+import { getAuthToken, getUserDetail, postCreateUser, postAddUserToGroup } from '../../../api/auth';
 import { hashCode } from '../../../utils/stringUtils';
 import { getQuests } from '../../../api/quests';
-import { UserDetail } from '../../../models/user';
+import { UserDetail, User } from '../../../models/user';
 import find from 'lodash.find';
 import SuedtirolGuideStore from '../../../utils/guideSingleton';
+import { ApiError, isUsernameAlreadyExisiting } from '../../../models/error';
 
 interface Props extends NavigationScreenProps {
   // ... other props
@@ -39,7 +40,7 @@ const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = p
   const navigation = useNavigation();
   const [quest, setQuest] = useState();
   const [token, setToken] = useState('');
-  const username = SuedtirolGuideStore.getInstance().getUserEmail() || 'ciaototto@gmail.com';
+  const username = SuedtirolGuideStore.getInstance().getUserEmail() || 'placeholdermercatini@gmail.com';
   const [user, setUser] = useState<UserDetail>({ username });
   const [isTransitionCompleted, setCompleted] = useState(false);
   const scrollY = new Animated.Value(0);
@@ -48,18 +49,50 @@ const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = p
 
   useEffect(() => {
     const fetchQuest = async () => {
-      const [e, tokenResponse] = await to(getAuthToken(username, hashCode(username)));
+      console.log(username);
 
-      if (tokenResponse) {
-        const { token, id } = tokenResponse;
+      const res = await getAuthToken('rizzo', 'rizzorizzorizzo');
+      const [err, newUser] = await to<User, ApiError>(postCreateUser(res.token, username));
 
-        setToken(token);
+      if (err && isUsernameAlreadyExisiting(err)) {
+        // check if already registered user
+        const [e, tokenResponse] = await to(getAuthToken(username, hashCode(username)));
 
-        const user = await getUserDetail(token, id);
-        const [e, quests] = await to<Quest>(getQuests(token));
+        if (tokenResponse) {
+          const { token, id } = tokenResponse;
 
-        setUser({ ...user, id });
-        setQuest(find(quests, q => q.name.toLowerCase() === SuedtirolGuideStore.getInstance().getQuestNameByLocale()));
+          setToken(token);
+
+          const user = await getUserDetail(token, id);
+          const [e, quests] = await to<Quest>(getQuests(token));
+
+          setUser({ ...user, id });
+          setQuest(
+            find(quests, q => q.name.toLowerCase() === SuedtirolGuideStore.getInstance().getQuestNameByLocale())
+          );
+        }
+      } else if (newUser) {
+        const isAdded = await postAddUserToGroup(res.token, newUser.id);
+
+        if (isAdded) {
+          const [e, tokenResponse] = await to(getAuthToken(username, hashCode(username)));
+
+          if (tokenResponse) {
+            const { token, id } = tokenResponse;
+
+            setToken(token);
+
+            const user = await getUserDetail(token, id);
+            const [e, quests] = await to<Quest>(getQuests(token));
+
+            setUser({ ...user, id });
+            setQuest(
+              find(quests, q => q.name.toLowerCase() === SuedtirolGuideStore.getInstance().getQuestNameByLocale())
+            );
+          }
+        }
+      } else {
+        // show notification error
       }
     };
 
@@ -251,6 +284,7 @@ const styles = StyleSheet.create({
   },
   questTitle: {
     ...material.display1Object,
+    fontSize: 28,
     fontFamily: 'SuedtirolPro-Regular',
     color: Colors.WHITE,
     marginBottom: PADDING_BOTTOM_FIX

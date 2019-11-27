@@ -1,7 +1,6 @@
 package it.bz.beacon.beaconsuedtirolsdk.integrationtest
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -33,8 +32,10 @@ class MainActivity : AppCompatActivity() {
         val clickButton = findViewById<Button>(R.id.button)
         clickButton.setOnClickListener {
             val intent = Intent(this@MainActivity, MyReactActivity::class.java)
-            intent.putExtra(QUEST_LOCALE, "it")
-            // intent.putExtra(USER_EMAIL, "mele@mele.it")
+            // you can pass parameter "de" for Deutsch quest or "it" for Italian quest
+            intent.putExtra(QUEST_LOCALE, "de")
+            // email of logged user
+            intent.putExtra(USER_EMAIL, "radghiv@gmail.com")
             startActivity(intent)
         }
     }

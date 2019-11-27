@@ -373,7 +373,11 @@ const StepViewer = () => {
         >
           <LinearGradient colors={['rgba(51,51,51,0)', Colors.BLACK]} locations={[0, 0.3]} style={styles.fill}>
             <View style={styles.footer}>
-              <BeaconLocalizer beaconFound={beaconFound} onOpenQuestionPressed={onOpenQuestionPressed} />
+              <BeaconLocalizer
+                beaconFound={beaconFound}
+                onOpenQuestionPressed={onOpenQuestionPressed}
+                label={question.finder}
+              />
             </View>
           </LinearGradient>
         </Animated.View>
@@ -468,6 +472,7 @@ const styles = StyleSheet.create({
   stepTitle: {
     ...material.display1Object,
     fontFamily: 'SuedtirolPro-Regular',
+    fontSize: 28,
     color: Colors.WHITE,
     marginBottom: PADDING_BOTTOM_FIX
   },
