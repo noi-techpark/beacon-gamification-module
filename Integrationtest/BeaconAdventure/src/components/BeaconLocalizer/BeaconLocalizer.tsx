@@ -9,12 +9,17 @@ import { Colors } from '../../styles/colors';
 
 interface IBeaconLocalizerProps {
   beaconFound?: Beacon;
+  label?: string;
   onOpenQuestionPressed: () => void;
 }
 
 const BUTTON_WIDTH = 88;
 
-const BeaconLocalizer: React.FunctionComponent<IBeaconLocalizerProps> = ({ beaconFound, onOpenQuestionPressed }) => {
+const BeaconLocalizer: React.FunctionComponent<IBeaconLocalizerProps> = ({
+  beaconFound,
+  onOpenQuestionPressed,
+  label
+}) => {
   const isFound = !usePrevious(beaconFound) && beaconFound;
 
   if (isFound) {
@@ -31,7 +36,7 @@ const BeaconLocalizer: React.FunctionComponent<IBeaconLocalizerProps> = ({ beaco
           speed={2}
           style={{ width: 48, height: 48 }}
         />
-        <Text>Vai all'ingresso della sala per cominciare la sfida!</Text>
+        <Text style={{ flex: 1, flexWrap: 'wrap' }}>{label || translate('finder')}</Text>
       </View>
       <Button
         onPress={onOpenQuestionPressed}
@@ -39,6 +44,7 @@ const BeaconLocalizer: React.FunctionComponent<IBeaconLocalizerProps> = ({ beaco
         mode="contained"
         dark={true}
         style={styles.button}
+        labelStyle={{ fontSize: 12 }}
         contentStyle={styles.fill}
       >
         {translate('start_step')}
