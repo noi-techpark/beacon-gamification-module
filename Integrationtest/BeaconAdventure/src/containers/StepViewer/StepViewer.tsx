@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, Image, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useBackHandler } from 'react-native-hooks';
 import LinearGradient from 'react-native-linear-gradient';
+import { Button } from 'react-native-paper';
 import { material } from 'react-native-typography';
 import { StackActions } from 'react-navigation';
 import { useNavigation, useNavigationParam } from 'react-navigation-hooks';
@@ -23,15 +24,14 @@ import { Beacon, BeaconMedata } from '../../models/beacon';
 import { Quest, QuestionMetadata, QuestStep } from '../../models/quest';
 import { ScreenKeys } from '../../screens';
 import { Colors } from '../../styles/colors';
-import { getLetterFromAlphabetByIndex, isQuestionWithTextInput } from '../../utils/uiobjects';
-import { MAX_RETRY } from '../quest/AnswerOutcome/AnswerOutcome';
+import { getLetterFromAlphabetByIndex, isMaxRetryReached, isQuestionWithTextInput } from '../../utils/uiobjects';
 
 interface IStepViewerProps {}
 
 const PADDING_BOTTOM_FIX = 4;
 const DESIRED_DISTANCE = 350;
 const FOOTER_SHADOW_DISTANCE = 35;
-const FOOTER_HEIGHT = 92;
+const FOOTER_HEIGHT = 92 + 48; // 48 is skip button margin + height
 const HEADER_MAX_HEIGHT = DESIRED_DISTANCE + 56 + PADDING_BOTTOM_FIX + StatusBar.currentHeight - 12; // DO NOT ASK PLS
 const HEADER_MIN_HEIGHT = 56 + StatusBar.currentHeight;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
@@ -241,7 +241,7 @@ const StepViewer = () => {
   }
 
   async function onRetryStepPressed() {
-    setRetryTimes(1);
+    setRetryTimes(retryTimes + 1);
   }
 
   const onSkipStepPressed = (step: QuestStep) => {
@@ -285,7 +285,7 @@ const StepViewer = () => {
   }
 
   async function onWrongAnswer(step: QuestStep) {
-    if (retryTimes === MAX_RETRY) {
+    if (isMaxRetryReached(retryTimes, question)) {
       if (userId) {
         const [e, response] = await to(postRemovePoints(token, userId, step.value_points_error));
       }
@@ -378,6 +378,19 @@ const StepViewer = () => {
                 onOpenQuestionPressed={onOpenQuestionPressed}
                 label={question.finder}
               />
+              <Button
+                onPress={() => onSkipStepPressed(step)}
+                mode="text"
+                dark={true}
+                theme={{
+                  colors: {
+                    primary: Colors.WHITE
+                  }
+                }}
+                style={{ marginTop: 16 }}
+              >
+                {translate('skip_question')}
+              </Button>
             </View>
           </LinearGradient>
         </Animated.View>

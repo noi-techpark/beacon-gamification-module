@@ -8,9 +8,7 @@ import { useAnimation } from '../../../hooks/useAnimation';
 import { translate } from '../../../localization/locale';
 import { QuestionMetadata, QuestStep } from '../../../models/quest';
 import { Colors } from '../../../styles/colors';
-import { showValuePointsSigned } from '../../../utils/uiobjects';
-
-export const MAX_RETRY = 1;
+import { isLowerThanMaxRetry, isMaxRetryReached, showValuePointsSigned } from '../../../utils/uiobjects';
 
 const AnswerOutcome = () => {
   const navigation = useNavigation();
@@ -48,7 +46,7 @@ const AnswerOutcome = () => {
 
   async function onCloseOutcomePressed() {
     navigation.goBack();
-    if (isCorrect || retryTimes === MAX_RETRY) {
+    if (isCorrect || isMaxRetryReached(retryTimes, question)) {
       navigation.state.params.onStepCompleted(step, isCorrect);
     } else {
       navigation.state.params.onRetryStepPressed();
@@ -116,7 +114,7 @@ const AnswerOutcome = () => {
               ? question.correctAnswerMessage || translate('general_correct_answer')
               : question.wrongAnswerMessage || translate('general_wrong_answer')}
           </Text>
-          {(isCorrect || retryTimes === MAX_RETRY) && (
+          {(isCorrect || isMaxRetryReached(retryTimes, question)) && (
             <View style={styles.pointsContainer}>
               <Image source={require('../../../images/star_gradient.png')} style={{ marginEnd: 8 }} />
               <>
@@ -125,9 +123,9 @@ const AnswerOutcome = () => {
             </View>
           )}
           <Button onPress={onCloseOutcomePressed} mode="contained" dark={true} style={{ marginTop: 48 }}>
-            {translate(isCorrect || retryTimes === MAX_RETRY ? 'proceed' : 'retry')}
+            {translate(isCorrect || isMaxRetryReached(retryTimes, question) ? 'proceed' : 'retry')}
           </Button>
-          {retryTimes < MAX_RETRY && (
+          {isLowerThanMaxRetry(retryTimes, question) && (
             <Button
               onPress={onSkipPressed}
               mode="text"
@@ -182,7 +180,7 @@ const styles = StyleSheet.create({
   },
   title: {
     ...material.display1Object,
-    fontFamily: 'SuedtirolPro-Regular',
+    // fontFamily: 'SuedtirolPro-Regular',
     paddingTop: 40,
     paddingBottom: 8,
     paddingHorizontal: 16,
@@ -206,7 +204,7 @@ const styles = StyleSheet.create({
   pointsText: {
     ...material.display1WhiteObject,
     color: Colors.SUDTIROL_DARK_ORANGE,
-    fontFamily: 'SuedtirolPro-Regular'
+    // fontFamily: 'SuedtirolPro-Regular'
   }
 });
 
