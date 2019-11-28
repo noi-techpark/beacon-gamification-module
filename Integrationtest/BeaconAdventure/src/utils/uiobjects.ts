@@ -40,3 +40,14 @@ export function isUndefined(obj?: unknown): boolean {
 export function isNull(obj?: unknown): boolean {
     return obj === null;
 }
+
+export const MAX_RETRY = 1;
+export const TEXT_MAX_RETRY = 4;
+
+export function isMaxRetryReached(retryTimes: number, question: QuestionMetadata): boolean {
+    return isQuestionWithTextInput(question) ? retryTimes === TEXT_MAX_RETRY : retryTimes === MAX_RETRY;
+}
+
+export function isLowerThanMaxRetry(retryTimes: number, question: QuestionMetadata): boolean {
+    return isQuestionWithTextInput(question) ? retryTimes < TEXT_MAX_RETRY : retryTimes < MAX_RETRY;
+}

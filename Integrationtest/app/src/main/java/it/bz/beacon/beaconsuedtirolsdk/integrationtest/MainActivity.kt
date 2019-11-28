@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             // you can pass parameter "de" for Deutsch quest or "it" for Italian quest
             intent.putExtra(QUEST_LOCALE, "de")
             // email of logged user
-            intent.putExtra(USER_EMAIL, "radghiv@gmail.com")
+            // intent.putExtra(USER_EMAIL, "radghiv@gmail.com")
             startActivity(intent)
         }
     }

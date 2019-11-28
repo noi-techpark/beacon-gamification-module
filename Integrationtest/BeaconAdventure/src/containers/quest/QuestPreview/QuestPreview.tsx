@@ -23,6 +23,7 @@ import { UserDetail, User } from '../../../models/user';
 import find from 'lodash.find';
 import SuedtirolGuideStore from '../../../utils/guideSingleton';
 import { ApiError, isUsernameAlreadyExisiting } from '../../../models/error';
+import { requestFineLocationPermission } from '../../../utils/permissions';
 
 interface Props extends NavigationScreenProps {
   // ... other props
@@ -139,20 +140,24 @@ const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = p
     }
   });
 
-  const onStartQuestPressed = () => {
-    NearbyBeacons.configureScanMode(2);
-    NearbyBeacons.setDeviceUpdateCallbackInterval(2);
+  const onStartQuestPressed = async () => {
+    const hasPermissions = await requestFineLocationPermission();
 
-    NearbyBeacons.startScanning(() => {
-      console.log('started scanning');
-    });
+    if (hasPermissions) {
+      NearbyBeacons.configureScanMode(2);
+      NearbyBeacons.setDeviceUpdateCallbackInterval(2);
 
-    navigation.navigate(ScreenKeys.StepViewer, {
-      quest,
-      stepId: 1,
-      token,
-      userId: user.id
-    });
+      NearbyBeacons.startScanning(() => {
+        console.log('started scanning');
+      });
+
+      navigation.navigate(ScreenKeys.StepViewer, {
+        quest,
+        stepId: 1,
+        token,
+        userId: user.id
+      });
+    }
   };
 
   const transition = (

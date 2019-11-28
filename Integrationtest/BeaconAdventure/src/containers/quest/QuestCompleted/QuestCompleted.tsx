@@ -58,7 +58,7 @@ const QuestCompleted: NavigationScreenComponent<NavigationStackOptions, IQuestCo
   });
 
   const onFinishQuestPressed = () => {
-    navigation.navigate(ScreenKeys.Home);
+    navigation.navigate(ScreenKeys.QuestPreview);
   };
 
   return (
