@@ -26,6 +26,49 @@ setQuest(
 );
 ```
 
+### Enable Quest List 
+
+First of all you need to edit the following files:
+
+QuestPreviex.tsx
+
+```typescript
+- const [quest, setQuest] = useState();
++ const quest: Quest = useNavigationParam('quest');
+
+// comment out useEffect method
+
+// change onStartQuestPressed
+const onStartQuestPressed = () => {
+  NearbyBeacons.configureScanMode(2);
+  NearbyBeacons.setDeviceUpdateCallbackInterval(2);
+  
+  navigation.navigate(ScreenKeys.StepViewer, {
+    quest,
+    stepId: 1,
+    token,
+    userId: user.id
+  });
+}  
+```
+
+App.tsx
+
+```typescript
++ initialRouteName: ScreenKeys.Onboarding,
+- initialRouteName: ScreenKeys.QuestPreview,
+```
+
+QuestCompleted.tsx
+
+```typescript
+const onFinishQuestPressed = () => {
+  navigation.navigate(ScreenKeys.Home);
+};
+```
+
+After this you can proceed with other configurations!
+
 ### Edit your project
 
 You now need to edit some of your files to support react native integration
