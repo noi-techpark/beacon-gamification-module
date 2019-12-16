@@ -5723,7 +5723,7 @@ react-is@^16.9.0:
 
 "react-native-beacon-suedtirol-mobile-sdk@git://github.com/BelkaLab/react-native-beacon-suedtirol-mobile-sdk":
   version "1.0.0"
-  resolved "git://github.com/BelkaLab/react-native-beacon-suedtirol-mobile-sdk#b4bb0f64835cd1a1e37480b0c5e486db73af8e04"
+  resolved "git://github.com/BelkaLab/react-native-beacon-suedtirol-mobile-sdk#77b38c3e174347f4559485378b9507f630fc2983"
 
 react-native-draggable-flatlist@^2.0.1:
   version "2.0.1"
