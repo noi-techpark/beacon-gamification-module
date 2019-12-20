@@ -36,7 +36,7 @@
     "postinstall-postinstall": "^2.0.0",
     "react": "16.9.0",
     "react-native": "0.61.4",
-    "react-native-beacon-suedtirol-mobile-sdk": "git://github.com/BelkaLab/react-native-beacon-suedtirol-mobile-sdk",
+    "react-native-beacon-suedtirol-mobile-sdk": "git://github.com/noi-techpark/react-native-beacon-suedtirol-mobile-sdk",
     "react-native-draggable-flatlist": "^2.0.1",
     "react-native-fast-image": "^7.0.2",
     "react-native-gesture-handler": "^1.4.1",
