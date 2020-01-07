@@ -226,6 +226,14 @@ public class MainApplication extends Application implements ReactApplication {
 
 About the application itself, you can find more info in its repository: https://github.com/noi-techpark/beacon-gamification-app
 
+### API Url
+
+If you want to change the URL of the server with a custom one, you can change it inside the file _apiFetcher.ts_
+
+```typescript
+export const API_SERVER_URL = "YOUR_URL_HERE";
+```
+
 ### Release
 
 Edit the build.gradle file with your keystore information
