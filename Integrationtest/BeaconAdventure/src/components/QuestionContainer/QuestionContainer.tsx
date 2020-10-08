@@ -74,7 +74,7 @@ const QuestionContainer: FunctionComponent<IQuestionContainerProps> = forwardRef
 
     const onAnswerPressed = () => {
       setFormSubmitted(true);
-      
+
       const isValid =
         question.kind === 'multiple'
           ? isEqual(sortBy(data.multipleAnswer), sortBy(question.answer))

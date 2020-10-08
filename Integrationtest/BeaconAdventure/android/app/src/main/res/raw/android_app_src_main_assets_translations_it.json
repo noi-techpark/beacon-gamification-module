@@ -18,7 +18,7 @@
   "current_points": "Punteggio attuale",
   "discover_adventures": "Scopri le avventure",
   "discover": "Scopri",
-  "start_step": "Inizia",
+  "start_step": "Vai",
   "back": "Indietro",
   "quest_completed": "Hai terminato l'avventura di %{quest_name}!",
   "finish_quest": "Completa avventura",
@@ -30,5 +30,8 @@
   "close": "Chiudi",
   "retry": "Riprova",
   "how_to_play": "Come giocare",
-  "points_placeholder": "Per guadagnare i tuoi primi punti completa le nostre avventure!"
+  "points_placeholder": "Per guadagnare i tuoi primi punti completa le nostre avventure!",
+  "accept": "Accetta i ",
+  "tos": "termini e condizioni di servizio",
+  "finder": "Vai all'ingresso della sala per cominciare la sfida!"
 }

@@ -112,6 +112,8 @@ dependencies {
     implementation project(path: ':react-native-linear-gradient')
     implementation project(path: ':react-native-shared-element')
     implementation project(path: ':react-native-beacon-suedtirol-mobile-sdk')
+    implementation project(path: ':react-native-mixpanel')
+    implementation project(path: ':react-native-device-info')
 
     if (enableHermes) {
         def hermesPath = "../BeaconAdventure/node_modules/hermes-engine/android/";

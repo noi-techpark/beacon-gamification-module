@@ -5725,6 +5725,11 @@ react-is@^16.9.0:
   version "1.0.0"
   resolved "git://github.com/BelkaLab/react-native-beacon-suedtirol-mobile-sdk#77b38c3e174347f4559485378b9507f630fc2983"
 
+react-native-device-info@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-6.2.0.tgz#6eda29dee048b73b29b57b7ec0c21545bd89dada"
+  integrity sha512-UtAk/ZAdCVCepEmRNM/3Kx7dWbLwmEPh527HTjoQUQy1utpoXm3y4sYtCrP2tjczSIyeMs5nLP4Wf3c8bc0fwQ==
+
 react-native-draggable-flatlist@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-native-draggable-flatlist/-/react-native-draggable-flatlist-2.0.1.tgz#28a58e3d80a870cb8c5b069bbbfd2e968e5e850c"
@@ -5759,6 +5764,11 @@ react-native-localize@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-localize/-/react-native-localize-1.2.1.tgz#7c68a9275117942763439bf570828f05fb5bbdc7"
   integrity sha512-givdHOFqu41EMgI6HikNnKhsze4jlJ+BVoznAAHuKFCLWwDr7z6S1tcq7c/C7zHrKlESpE5H1ZqAPU3R5Hhdog==
+
+react-native-mixpanel@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-mixpanel/-/react-native-mixpanel-1.2.3.tgz#84d2fffd06ca2169f23b447984d23d6b4f8ddf23"
+  integrity sha512-2OQZ8XWp8k7nlUevVi4MsGLDDymDB2vCxIcWFX/ioJugxNSWSa/DOuWlWt9/RIOOA9Q6L/2Xtvl28hPY0vD+Yg==
 
 react-native-paper@^3.0.0-alpha.5:
   version "3.0.0-alpha.5"

@@ -15,17 +15,17 @@ export function useDiscoveredBeacons() {
     useEffect(() => {
         const subscriptions = [
             DeviceEventEmitter.addListener(IBEACON_DISCOVERED, async (beacon: Beacon) => {
-                console.log(beacon);
+                // console.log(beacon);
                 
                 setDiscoveredBeacons(sortBy(unionBy(discoveredBeacons, [beacon], b => b.id), b => b.distance));
             }),
             DeviceEventEmitter.addListener(IBEACONS_UPDATED, ({ beacons }) => {
-                console.log(beacons);
+                // console.log(beacons);
 
                 setDiscoveredBeacons(sortBy(unionBy(beacons, discoveredBeacons, b => b.id), b => b.distance));
             }),
             DeviceEventEmitter.addListener(IBEACON_LOST, beacon => {
-                console.log(beacon);
+                // console.log(beacon);
                 
                 setDiscoveredBeacons(filter(discoveredBeacons, b => b.id !== beacon.id));
             })

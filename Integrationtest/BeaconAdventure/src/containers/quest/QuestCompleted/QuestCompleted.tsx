@@ -1,5 +1,5 @@
 import LottieView from 'lottie-react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Animated, Easing, ImageBackground, StyleSheet, View } from 'react-native';
 import { useBackHandler } from 'react-native-hooks';
 import LinearGradient from 'react-native-linear-gradient';
@@ -8,6 +8,7 @@ import { material } from 'react-native-typography';
 import { NavigationScreenComponent, NavigationScreenProps } from 'react-navigation';
 import { useNavigation, useNavigationEvents, useNavigationParam } from 'react-navigation-hooks';
 import { NavigationStackOptions } from 'react-navigation-stack';
+import Mixpanel from 'react-native-mixpanel';
 import { PointsTotal } from '../../../components/PointsTotal';
 import { DEFAULT_QUEST_IMAGE_URL } from '../../../config';
 import { useAnimation } from '../../../hooks/useAnimation';
@@ -15,6 +16,8 @@ import { translate } from '../../../localization/locale';
 import { Quest } from '../../../models/quest';
 import { ScreenKeys } from '../../../screens';
 import { Colors } from '../../../styles/colors';
+import { MixpanelKeys } from '../../../utils/analytics';
+import SuedtirolGuideStore from '../../../utils/guideSingleton';
 
 interface IQuestCompletedProps extends NavigationScreenProps {
   // ... other props
@@ -45,6 +48,12 @@ const QuestCompleted: NavigationScreenComponent<NavigationStackOptions, IQuestCo
       setCompleted(true);
     }
   });
+
+  useEffect(() => {
+    Mixpanel.trackWithProperties(MixpanelKeys.QUEST_COMPLETED, {
+      questName: SuedtirolGuideStore.getInstance().getQuestNameByLocale()
+    });
+  }, []);
 
   const opacity = useAnimation({
     doAnimation: isScreenAppearing,
