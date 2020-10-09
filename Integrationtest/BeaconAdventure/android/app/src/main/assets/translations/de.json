@@ -33,5 +33,9 @@
   "points_placeholder": "Um Punkte zu sammeln, musst du Abenteuer und Aufgaben beenden!",
   "accept": "Akzeptieren",
   "tos": "Nutzungsbedingungen",
-  "finder": "Gehe zum Eingang des Raumes, um die Herausforderung zu starten!"
+  "finder": "Gehe zum Eingang des Raumes, um die Herausforderung zu starten!",
+  "send": "Senden",
+  "skip": "Überspringen",
+  "how_evaluate_experience": "Wie bewerten Sie Ihre Erfahrungen?",
+  "give_us_feedback": "Hinterlassen Sie uns Feedback!"
 }

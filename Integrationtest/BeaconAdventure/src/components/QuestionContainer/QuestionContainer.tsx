@@ -59,6 +59,7 @@ const QuestionContainer: FunctionComponent<IQuestionContainerProps> = forwardRef
     useNavigationEvents(evt => {
       if (evt.type === 'didBlur' && isFormSubmitted) {
         clearState();
+        setFormSubmitted(false);
       }
     });
 

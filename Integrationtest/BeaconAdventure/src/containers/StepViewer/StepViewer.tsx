@@ -241,7 +241,7 @@ const StepViewer = () => {
       setRetryTimes(0);
 
       setTimeout(() => {
-        navigation.navigate(ScreenKeys.QuestCompleted, {
+        navigation.navigate(ScreenKeys.QuestFeedback, {
           quest,
           points: isCorrectAnswer ? currentPoints + step.value_points : currentPoints + step.value_points_error
         });
@@ -286,7 +286,7 @@ const StepViewer = () => {
           isBeaconFound: beaconFound !== undefined
         });
 
-        navigation.navigate(ScreenKeys.QuestCompleted, { quest, points: currentPoints });
+        navigation.navigate(ScreenKeys.QuestFeedback, { quest, points: currentPoints });
       }, 500);
     }
   };

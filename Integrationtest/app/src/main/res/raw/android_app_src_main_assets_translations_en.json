@@ -30,5 +30,9 @@
   "close": "Close",
   "retry": "Retry",
   "how_to_play": "How to play",
-  "points_placeholder": "Earn your first points by completing our adventures!"
+  "points_placeholder": "Earn your first points by completing our adventures!",
+  "send": "Send",
+  "skip": "Skip",
+  "how_evaluate_experience": "How do you evaluate your experience?",
+  "give_us_feedback": "Leave us feedback!"
 }

@@ -18,6 +18,7 @@ import { Onboarding } from './src/containers/Onboarding';
 import { AnswerOutcome } from './src/containers/quest/AnswerOutcome';
 import { ProvideHelp } from './src/containers/quest/ProvideHelp';
 import { QuestCompleted } from './src/containers/quest/QuestCompleted';
+import { QuestFeedback } from './src/containers/quest/QuestFeedback';
 import { QuestPause } from './src/containers/quest/QuestPause';
 import { QuestPreview } from './src/containers/quest/QuestPreview';
 import { Register } from './src/containers/Register';
@@ -48,6 +49,9 @@ const AppNavigator = createSharedElementStackNavigator(
     },
     [ScreenKeys.StepViewer]: {
       screen: StepViewer
+    },
+    [ScreenKeys.QuestFeedback]: {
+      screen: QuestFeedback
     },
     [ScreenKeys.QuestCompleted]: {
       screen: QuestCompleted
