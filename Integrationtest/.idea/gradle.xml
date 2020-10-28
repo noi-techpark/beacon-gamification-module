@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-gesture-handler/android" />
             <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-linear-gradient/android" />
             <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-localize/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-mixpanel/android" />
             <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-reanimated/android" />
             <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-screens/android" />
             <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-shared-element/android" />

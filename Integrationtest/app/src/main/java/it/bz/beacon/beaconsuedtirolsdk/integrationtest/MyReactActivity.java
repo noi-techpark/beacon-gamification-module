@@ -17,6 +17,8 @@ import com.reactlibrary.BeaconSuedtirolMobileSdkPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
+import com.kevinejohn.RNMixpanel.*;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 
 // import com.facebook.react.LifecycleState;
 
@@ -48,6 +50,8 @@ public class MyReactActivity extends ReactActivity implements DefaultHardwareBac
                 .addPackage(new LinearGradientPackage())
                 .addPackage(new RNSharedElementPackage())
                 .addPackage(new BeaconSuedtirolMobileSdkPackage())
+                .addPackage(new RNMixpanel())
+                .addPackage(new RNDeviceInfo())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();

@@ -191,13 +191,13 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     // implementation "com.github.noi-techpark:beacon-suedtirol-mobile-sdk-android:0.2.8"
-    implementation "it.bz.beacon:sdk:0.2.10-SNAPSHOT"
+    implementation "it.bz.beacon:sdk:0.4.2"
     implementation "com.kontaktio:sdk:4.0.3"
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
 
     if (enableHermes) {
-      def hermesPath = "../../node_modules/hermesvm/android/";
+      def hermesPath = "../../node_modules/hermes-engine/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")
       releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {

@@ -1,29 +1,32 @@
-import React, { useRef, useState, useEffect } from 'react';
+import to from 'await-to-js';
+import find from 'lodash.find';
+import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import NearbyBeacons from 'react-native-beacon-suedtirol-mobile-sdk';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-import { Button, ActivityIndicator } from 'react-native-paper';
+import Mixpanel from 'react-native-mixpanel';
+import { Button } from 'react-native-paper';
 import { Transition, Transitioning, TransitioningView } from 'react-native-reanimated';
 import { material } from 'react-native-typography';
 import { NavigationScreenComponent, NavigationScreenProps } from 'react-navigation';
-import { useNavigation, useNavigationEvents, useNavigationParam } from 'react-navigation-hooks';
+import { useNavigation, useNavigationEvents } from 'react-navigation-hooks';
 import { SharedElement } from 'react-navigation-shared-element';
 import { NavigationStackOptions } from 'react-navigation-stack';
+import { getAuthToken, getUserDetail, postAddUserToGroup, postCreateUser } from '../../../api/auth';
+import { getQuests } from '../../../api/quests';
 import { DEFAULT_QUEST_IMAGE_URL } from '../../../config';
 import { translate } from '../../../localization/locale';
+import { ApiError, isUsernameAlreadyExisiting } from '../../../models/error';
 import { Quest } from '../../../models/quest';
+import { User, UserDetail } from '../../../models/user';
 import { ScreenKeys } from '../../../screens';
 import { Colors } from '../../../styles/colors';
-import to from 'await-to-js';
-import { getAuthToken, getUserDetail, postCreateUser, postAddUserToGroup } from '../../../api/auth';
-import { hashCode } from '../../../utils/stringUtils';
-import { getQuests } from '../../../api/quests';
-import { UserDetail, User } from '../../../models/user';
-import find from 'lodash.find';
+import { MixpanelKeys } from '../../../utils/analytics';
 import SuedtirolGuideStore from '../../../utils/guideSingleton';
-import { ApiError, isUsernameAlreadyExisiting } from '../../../models/error';
 import { requestFineLocationPermission } from '../../../utils/permissions';
+import { hashCode } from '../../../utils/stringUtils';
+import { getUniqueId } from 'react-native-device-info';
 
 interface Props extends NavigationScreenProps {
   // ... other props
@@ -39,7 +42,7 @@ const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = props => {
   const navigation = useNavigation();
-  const [quest, setQuest] = useState();
+  const [quest, setQuest] = useState<Quest>();
   const [token, setToken] = useState('');
   const username = SuedtirolGuideStore.getInstance().getUserEmail() || 'placeholdermercatini@gmail.com';
   const [user, setUser] = useState<UserDetail>({ username });
@@ -50,8 +53,6 @@ const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = p
 
   useEffect(() => {
     const fetchQuest = async () => {
-      console.log(username);
-
       const res = await getAuthToken('rizzo', 'rizzorizzorizzo');
       const [err, newUser] = await to<User, ApiError>(postCreateUser(res.token, username));
 
@@ -98,6 +99,21 @@ const QuestPreview: NavigationScreenComponent<NavigationStackOptions, Props> = p
     };
 
     fetchQuest();
+
+    async function initMixpanel() {
+      await Mixpanel.sharedInstanceWithToken('f37070e63bb1017311a6cb4743d6654f');
+      // setup user
+      const id = getUniqueId();
+      Mixpanel.identify(id);
+
+      Mixpanel.set({ $email: username, Created: new Date().toISOString() });
+
+      Mixpanel.trackWithProperties(MixpanelKeys.QUEST_STARTED, {
+        questName: SuedtirolGuideStore.getInstance().getQuestNameByLocale()
+      });
+    }
+
+    initMixpanel();
   }, []);
 
   const headerHeight = scrollY.interpolate({

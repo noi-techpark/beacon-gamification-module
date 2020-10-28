@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, Image, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useBackHandler } from 'react-native-hooks';
 import LinearGradient from 'react-native-linear-gradient';
+import Mixpanel from 'react-native-mixpanel';
 import { Button } from 'react-native-paper';
 import { material } from 'react-native-typography';
 import { StackActions } from 'react-navigation';
@@ -24,6 +25,8 @@ import { Beacon, BeaconMedata } from '../../models/beacon';
 import { Quest, QuestionMetadata, QuestStep } from '../../models/quest';
 import { ScreenKeys } from '../../screens';
 import { Colors } from '../../styles/colors';
+import { MixpanelKeys } from '../../utils/analytics';
+import SuedtirolGuideStore from '../../utils/guideSingleton';
 import { getLetterFromAlphabetByIndex, isMaxRetryReached, isQuestionWithTextInput } from '../../utils/uiobjects';
 
 interface IStepViewerProps {}
@@ -198,6 +201,12 @@ const StepViewer = () => {
     };
 
     fetchBeacon();
+
+    Mixpanel.trackWithProperties(MixpanelKeys.USER_ENTER_STEP_VIEWER, {
+      questName: SuedtirolGuideStore.getInstance().getQuestNameByLocale(),
+      stepId: stepId,
+      stepName: step.name
+    });
   }, [stepId]);
 
   async function onStepCompleted(step: QuestStep, isCorrectAnswer: boolean) {
@@ -232,7 +241,7 @@ const StepViewer = () => {
       setRetryTimes(0);
 
       setTimeout(() => {
-        navigation.navigate(ScreenKeys.QuestCompleted, {
+        navigation.navigate(ScreenKeys.QuestFeedback, {
           quest,
           points: isCorrectAnswer ? currentPoints + step.value_points : currentPoints + step.value_points_error
         });
@@ -253,6 +262,13 @@ const StepViewer = () => {
       setQuestIndex(0);
       setRetryTimes(0);
 
+      Mixpanel.trackWithProperties(MixpanelKeys.USER_SKIPPED_QUESTION, {
+        questName: SuedtirolGuideStore.getInstance().getQuestNameByLocale(),
+        stepId: stepId,
+        stepName: step.name,
+        isBeaconFound: beaconFound !== undefined
+      });
+
       navigation.navigate(ScreenKeys.StepViewer, {
         quest,
         stepId: step.quest_index + 1,
@@ -263,7 +279,14 @@ const StepViewer = () => {
       setRetryTimes(0);
 
       setTimeout(() => {
-        navigation.navigate(ScreenKeys.QuestCompleted, { quest, points: currentPoints });
+        Mixpanel.trackWithProperties(MixpanelKeys.USER_SKIPPED_QUESTION, {
+          questName: SuedtirolGuideStore.getInstance().getQuestNameByLocale(),
+          stepId: stepId,
+          stepName: step.name,
+          isBeaconFound: beaconFound !== undefined
+        });
+
+        navigation.navigate(ScreenKeys.QuestFeedback, { quest, points: currentPoints });
       }, 500);
     }
   };
@@ -274,6 +297,12 @@ const StepViewer = () => {
     }
 
     setStepCompleted(true);
+
+    Mixpanel.trackWithProperties(MixpanelKeys.STEP_CORRECT_ANSWER, {
+      questName: SuedtirolGuideStore.getInstance().getQuestNameByLocale(),
+      stepId: stepId,
+      stepName: step.name
+    });
 
     navigation.navigate(ScreenKeys.AnswerOutcome, {
       step,
@@ -290,6 +319,12 @@ const StepViewer = () => {
         const [e, response] = await to(postRemovePoints(token, userId, step.value_points_error));
       }
 
+      Mixpanel.trackWithProperties(MixpanelKeys.STEP_WRONG_ANSWER, {
+        questName: SuedtirolGuideStore.getInstance().getQuestNameByLocale(),
+        stepId: stepId,
+        stepName: step.name
+      });
+
       setStepCompleted(true);
     }
 
@@ -305,6 +340,12 @@ const StepViewer = () => {
   }
 
   function onOpenQuestionPressed() {
+    Mixpanel.trackWithProperties(MixpanelKeys.BEACON_READY_SHOW_QUESTION, {
+      questName: SuedtirolGuideStore.getInstance().getQuestNameByLocale(),
+      stepId: stepId,
+      stepName: step.name
+    });
+
     setShowQuestion(true);
     setHeaderTransition(true);
   }
