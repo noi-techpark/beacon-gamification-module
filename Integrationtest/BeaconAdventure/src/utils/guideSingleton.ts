@@ -33,10 +33,12 @@ export default class SuedtirolGuideStore {
         switch (this._userLocale) {
             default:
             case 'de':
-                return 'Merano - Christmas Crime'.toLowerCase();
-                // return 'Impact Hub'.toLowerCase();
+                return "MeranO City Crime DE".toLowerCase();
+            // return 'Merano - Christmas Crime'.toLowerCase();
+            // return 'Impact Hub'.toLowerCase();
             case 'it':
-                return 'Merano - Crimine Natalizio'.toLowerCase();
+                return "MeranO City Crime IT".toLowerCase();
+            // return 'Merano - Crimine Natalizio'.toLowerCase();
         }
     }
 }
