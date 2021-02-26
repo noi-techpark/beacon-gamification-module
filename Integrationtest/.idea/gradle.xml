@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/appcenter-analytics/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/appcenter-crashes/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/appcenter/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/lottie-react-native/src/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-beacon-suedtirol-mobile-sdk/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-fast-image/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-gesture-handler/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-linear-gradient/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-localize/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-mixpanel/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-reanimated/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-screens/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-shared-element/android" />
+            <option value="$PROJECT_DIR$/BeaconAdventure/node_modules/react-native-vector-icons/android" />
+            <option value="$PROJECT_DIR$/app" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
