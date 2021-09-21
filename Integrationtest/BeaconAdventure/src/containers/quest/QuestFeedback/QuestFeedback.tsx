@@ -1,15 +1,15 @@
-import LottieView from 'lottie-react-native';
 import React, { useEffect, useState } from 'react';
-import { Animated, Easing, ImageBackground, StyleSheet, View } from 'react-native';
+import { Animated, Image, StyleSheet, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useBackHandler } from 'react-native-hooks';
 import LinearGradient from 'react-native-linear-gradient';
+import Mixpanel from 'react-native-mixpanel';
 import { Button, Text, TextInput } from 'react-native-paper';
+import StarRatingBar from 'react-native-star-rating-view';
 import { material } from 'react-native-typography';
 import { NavigationScreenComponent, NavigationScreenProps } from 'react-navigation';
 import { useNavigation, useNavigationEvents, useNavigationParam } from 'react-navigation-hooks';
 import { NavigationStackOptions } from 'react-navigation-stack';
-import Mixpanel from 'react-native-mixpanel';
-import { PointsTotal } from '../../../components/PointsTotal';
 import { DEFAULT_QUEST_IMAGE_URL } from '../../../config';
 import { useAnimation } from '../../../hooks/useAnimation';
 import { translate } from '../../../localization/locale';
@@ -18,8 +18,6 @@ import { ScreenKeys } from '../../../screens';
 import { Colors } from '../../../styles/colors';
 import { MixpanelKeys } from '../../../utils/analytics';
 import SuedtirolGuideStore from '../../../utils/guideSingleton';
-import { ScrollView } from 'react-native-gesture-handler';
-import StarRatingBar from 'react-native-star-rating-view';
 
 interface IQuestCompletedProps extends NavigationScreenProps {
   // ... other props
@@ -103,6 +101,10 @@ const QuestFeedback: NavigationScreenComponent<NavigationStackOptions, IQuestCom
               spacing={30}
               allowsHalfStars={false}
               accurateHalfStars={false}
+              emptyStarImage={<Image style={{ width: 16, height: 16 }} source={require('../../../images/star.png')} />}
+              filledStarImage={
+                <Image style={{ width: 16, height: 16 }} source={require('../../../images/star_gradient.png')} />
+              }
               onStarValueChanged={score => {
                 setStarFeedback(score);
               }}
