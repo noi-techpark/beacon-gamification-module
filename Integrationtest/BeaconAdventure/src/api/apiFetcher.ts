@@ -1,7 +1,7 @@
 import { to } from 'await-to-js';
 import { ApiError } from '../models/error';
 
-export const API_SERVER_URL = "http://157.230.18.122/api/v1";
+export const API_SERVER_URL = "http://174.138.100.82/api/v1";
 
 export async function fetchBeaconsApi<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
     const [error, httpResponse] = await to(fetch(input, init));
